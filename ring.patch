@@ -1,0 +1,124 @@
+diff --git a/.github/workflows/rust.yml b/.github/workflows/rust.yml
+index c3cb204..94bd359 100644
+--- a/.github/workflows/rust.yml
++++ b/.github/workflows/rust.yml
+@@ -10,7 +10,7 @@ jobs:
+       matrix:
+         rust:
+           - stable
+-          - 1.57.0
++          - 1.61.0
+           - nightly
+     steps:
+       - uses: actions/checkout@v2
+@@ -22,8 +22,8 @@ jobs:
+       - name: Cargo update
+         run: cargo update
+       - name: Cargo update (fix for MSRV)
+-        run: cargo update -p time --precise 0.3.9
+-        if: matrix.rust == '1.57.0'
++        run: cargo update -p time --precise 0.3.17
++        if: matrix.rust == '1.61.0'
+       - uses: actions-rs/cargo@v1
+         with:
+           command: check
+@@ -35,7 +35,7 @@ jobs:
+       matrix:
+         rust:
+           - stable
+-          - 1.57.0
++          - 1.61.0
+           - nightly
+     steps:
+       - uses: actions/checkout@v2
+@@ -47,8 +47,8 @@ jobs:
+       - name: Cargo update
+         run: cargo update
+       - name: Cargo update (fix for MSRV)
+-        run: cargo update -p time --precise 0.3.9
+-        if: matrix.rust == '1.57.0'
++        run: cargo update -p time --precise 0.3.17
++        if: matrix.rust == '1.61.0'
+       - uses: actions-rs/cargo@v1
+         with:
+           command: check
+diff --git a/Cargo.toml b/Cargo.toml
+index 86cdb67..2ea7235 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -1,6 +1,6 @@
+ [package]
+ name = "x509-parser"
+-version = "0.15.1"
++version = "0.15.2"
+ description = "Parser for the X.509 v3 format (RFC 5280 certificates)"
+ license = "MIT OR Apache-2.0"
+ keywords = ["X509","Certificate","parser","nom"]
+@@ -46,7 +46,7 @@ lazy_static = "1.4"
+ nom = "7.0"
+ oid-registry = { version="0.6", features=["crypto", "x509", "x962"] }
+ rusticata-macros = "4.0"
+-ring = { version="0.16.11", optional=true }
++ring = { version="0.17.5", optional=true }
+ der-parser = { version = "8.1.0", features=["bigint"] }
+ thiserror = "1.0.2"
+-time = { version="0.3.7", features=["formatting"] }
++time = { version="0.3.17", features=["formatting"] }
+diff --git a/README.md b/README.md
+index cf055f2..c2c7ecb 100644
+--- a/README.md
++++ b/README.md
+@@ -6,7 +6,7 @@
+ [![crates.io](https://img.shields.io/crates/v/x509-parser.svg)](https://crates.io/crates/x509-parser)
+ [![Download numbers](https://img.shields.io/crates/d/x509-parser.svg)](https://crates.io/crates/x509-parser)
+ [![Github CI](https://github.com/rusticata/x509-parser/workflows/Continuous%20integration/badge.svg)](https://github.com/rusticata/x509-parser/actions)
+-[![Minimum rustc version](https://img.shields.io/badge/rustc-1.57.0+-lightgray.svg)](#rust-version-requirements)
++[![Minimum rustc version](https://img.shields.io/badge/rustc-1.61.0+-lightgray.svg)](#rust-version-requirements)
+ 
+ # X.509 Parser
+ 
+@@ -103,12 +103,12 @@ pub fn check_signature(cert: &X509Certificate<'_>, issuer: &X509Certificate<'_>)
+ 
+ ## Rust version requirements
+ 
+-`x509-parser` requires **Rustc version 1.57 or greater**, based on der-parser
++`x509-parser` requires **Rustc version 1.61 or greater**, based on der-parser
+ dependencies and for proc-macro attributes support.
+ 
+ Note that due to breaking changes in the `time` crate, a specific version of this
+-crate must be specified for compiler versions <= 1.57:
+-`cargo update -p time --precise 0.3.9`
++crate must be specified for compiler versions <= 1.61:
++`cargo update -p time --precise 0.3.17`
+ 
+ [RFC5280]: https://tools.ietf.org/html/rfc5280
+ <!-- cargo-sync-readme end -->
+diff --git a/src/lib.rs b/src/lib.rs
+index 1ddd357..352c8e8 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -4,7 +4,7 @@
+ //! [![crates.io](https://img.shields.io/crates/v/x509-parser.svg)](https://crates.io/crates/x509-parser)
+ //! [![Download numbers](https://img.shields.io/crates/d/x509-parser.svg)](https://crates.io/crates/x509-parser)
+ //! [![Github CI](https://github.com/rusticata/x509-parser/workflows/Continuous%20integration/badge.svg)](https://github.com/rusticata/x509-parser/actions)
+-//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.57.0+-lightgray.svg)](#rust-version-requirements)
++//! [![Minimum rustc version](https://img.shields.io/badge/rustc-1.61.0+-lightgray.svg)](#rust-version-requirements)
+ //!
+ //! # X.509 Parser
+ //!
+@@ -109,12 +109,12 @@
+ //!
+ //! ## Rust version requirements
+ //!
+-//! `x509-parser` requires **Rustc version 1.57 or greater**, based on der-parser
++//! `x509-parser` requires **Rustc version 1.61 or greater**, based on der-parser
+ //! dependencies and for proc-macro attributes support.
+ //!
+ //! Note that due to breaking changes in the `time` crate, a specific version of this
+-//! crate must be specified for compiler versions <= 1.57:
+-//! `cargo update -p time --precise 0.3.9`
++//! crate must be specified for compiler versions <= 1.61:
++//! `cargo update -p time --precise 0.3.17`
+ //!
+ //! [RFC5280]: https://tools.ietf.org/html/rfc5280
+ 
